@@ -4,23 +4,37 @@ import menu from './data';
 import Menu from './Menu';
 import Categories from './Categories';
 
+const allCategories = [
+  'all',
+  ...new Set(
+    menu.map((item) => {
+      return item.category;
+    })
+  ),
+];
+
 const App = () => {
   const [foods, setFoods] = useState(menu);
+  const [category, setCategory] = useState(allCategories);
 
-  const diffCategories = foods.map((item) => {
-    return item.category;
-  });
-  const newCategories = new Set(diffCategories);
-  const categories = ['all', ...newCategories];
-  console.log(newCategories);
-
-  const [category, setCategory] = useState(categories);
+  const filterCat = (item) => {
+    if (item === 'all') {
+      setFoods(menu);
+      return;
+    }
+    setFoods(
+      menu.filter((i) => {
+        return i.category === item;
+      })
+    );
+    console.log(foods);
+  };
 
   return (
     <main>
       <Title />
+      <Categories category={category} filterCat={filterCat} />
       <Menu foods={foods} />
-      <Categories category={category} />
     </main>
   );
 };

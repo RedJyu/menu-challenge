@@ -1,16 +1,21 @@
-function Categories({ category }) {
+function Categories({ category, filterCat }) {
   return (
-    <section className='section-center'>
-      <div className='btn-container'>
-        {category.map((item) => {
-          return (
-            <button key={item} className='btn' type='button'>
-              {item}
-            </button>
-          );
-        })}
-      </div>
-    </section>
+    <div className='btn-container'>
+      {category.map((item) => {
+        return (
+          <button
+            className='btn'
+            type='button'
+            key={item}
+            onClick={() => {
+              filterCat(item);
+            }}
+          >
+            {item}
+          </button>
+        );
+      })}
+    </div>
   );
 }
 export default Categories;
